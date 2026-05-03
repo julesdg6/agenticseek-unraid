@@ -109,6 +109,16 @@ Open your browser at **`http://[SERVER-IP]:3333`** after the container is runnin
    docker logs agenticseek
    ```
 
+### Backend crash: "No work dir specified"
+
+If the container logs show:
+
+```
+Exception: No work dir specified, please specify a work dir in .env file.
+```
+
+the `WORK_DIR` environment variable is not set.  The image sets a default of `/opt/workspace`, which matches the **Workspace Path** volume mapping in the template.  If you see this error, verify that the `WORK_DIR` variable is present in the container settings and set to the container-side path of your workspace volume (default: `/opt/workspace`).
+
 ## Support
 
 - Template issues: [github.com/julesdg6/agenticseek-unraid/issues](https://github.com/julesdg6/agenticseek-unraid/issues)

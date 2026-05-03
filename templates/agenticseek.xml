@@ -45,6 +45,14 @@
     Description="Directory that the AI agent can read from and write files to. Point this to a folder you want the agent to work in."
     Type="Path" Display="always" Required="true" Mask="false">/mnt/user/data/agenticseek-workspace</Config>
 
+  <!-- WORK_DIR must match the container-side path for the Workspace Path mount above.
+       The default /opt/workspace aligns with the Workspace Path mapping and is set as an
+       ENV default in the image, so changing this is only needed if you remap the workspace
+       to a different container path. -->
+  <Config Name="Work Directory" Target="WORK_DIR" Default="/opt/workspace"
+    Description="Container path the backend uses as its working directory for agent file operations. Must match the container-side path of the Workspace Path volume above (default: /opt/workspace)."
+    Type="Variable" Display="advanced" Required="false" Mask="false">/opt/workspace</Config>
+
   <Config Name="Screenshots Path" Target="/app/screenshots" Default="/mnt/user/appdata/agenticseek/screenshots" Mode="rw"
     Description="Path where screenshots taken by the browser automation agent are saved."
     Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/agenticseek/screenshots</Config>
