@@ -11,6 +11,9 @@ ENV DISPLAY=:99
 ENV REDIS_URL=redis://localhost:6379/0
 ENV PORT=3333
 ENV CHOKIDAR_USEPOLLING=true
+# Default workspace directory consumed by the backend's safe_get_work_dir_path().
+# This matches the container-side mount point for the "Workspace Path" template variable.
+ENV WORK_DIR=/opt/workspace
 # Pin Chrome to a tested version. Update alongside the upstream Dockerfile.backend
 # when new agenticSeek releases are made. Check available versions at:
 # https://googlechromelabs.github.io/chrome-for-testing/
