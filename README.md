@@ -14,7 +14,7 @@ Once installed, note the URL of your SearxNG instance (e.g. `http://192.168.1.10
 
 | Template | Docker Image | Description |
 |---|---|---|
-| [agenticseek.xml](templates/agenticseek.xml) | `ghcr.io/julesdg6/agenticseek:latest` | All-in-one container: React web UI + Python API backend + Valkey cache |
+| [agenticseek.xml](templates/agenticseek.xml) | `ghcr.io/julesdg6/agenticseek-unraid:latest` | All-in-one container: React web UI + Python API backend + Valkey cache |
 
 ## Installation
 

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>AgenticSeek</Name>
-  <Repository>ghcr.io/julesdg6/agenticseek:latest</Repository>
-  <Registry>https://github.com/julesdg6/agenticseek-unraid/pkgs/container/agenticseek</Registry>
+  <Repository>ghcr.io/julesdg6/agenticseek-unraid:latest</Repository>
+  <Registry>https://github.com/julesdg6/agenticseek-unraid/pkgs/container/agenticseek-unraid</Registry>
   <Network>bridge</Network>
   <MyIP/>
   <Shell>bash</Shell>
