@@ -46,7 +46,15 @@ Then go to **Docker** → **Add Container** and the **AgenticSeek** template wil
 | **Provider Name** | `ollama` | `ollama`, `openai`, `deepseek`, `openrouter`, `google`, `anthropic`, etc. |
 | **Provider Model** | `deepseek-r1:14b` | Model tag for your chosen provider |
 | **Provider Server Address** | `host.docker.internal:11434` | Address of your Ollama / LM Studio / LLM server |
-| **Backend URL** | `http://[SERVER-IP]:7777` | Replace with your Unraid server's LAN IP |
+| **Backend URL** | `http://YOUR-SERVER-IP:7777` | **Must be set to your Unraid server's LAN IP** — see note below |
+
+> **⚠️ Backend URL is required**
+>
+> `REACT_APP_BACKEND_URL` is embedded into the React frontend at dev-server
+> startup time.  You **must** replace `YOUR-SERVER-IP` with your Unraid
+> server's actual LAN IP address (e.g. `http://192.168.1.100:7777`) before
+> starting the container.  If this value is left as the placeholder the UI
+> will show *"System offline. Deploy backend first."*
 
 ### Using a local Ollama instance
 
@@ -79,9 +87,27 @@ All data is stored under `/mnt/user/appdata/agenticseek/` by default:
                     ← Files the AI agent can read and write
 ```
 
+> **Note on the Appdata path**
+>
+> The Appdata path is mapped to `/app/userdata` inside the container, **not**
+> `/app`.  The `/app` directory holds the Python application source code that
+> is baked into the image; bind-mounting an empty host directory there would
+> shadow the source files and prevent the backend from starting.
+
 ## Accessing the UI
 
 Open your browser at **`http://[SERVER-IP]:3000`** after the container is running.
+
+## Troubleshooting
+
+### "System offline. Deploy backend first."
+
+1. Make sure **Backend URL** (`REACT_APP_BACKEND_URL`) is set to your Unraid server's real LAN IP, e.g. `http://192.168.1.100:7777`.  A placeholder value will always show offline.
+2. Confirm that **Backend Port** `7777` is exposed in the Unraid template (it is by default).
+3. Check the container logs for backend startup errors:
+   ```bash
+   docker logs agenticseek
+   ```
 
 ## Support
 

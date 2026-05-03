@@ -1,10 +1,24 @@
 FROM python:3.11.12
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DISPLAY=:99
+
+# Default runtime environment variables.
+# REDIS_URL, PORT, and CHOKIDAR_USEPOLLING are set here so that supervisord
+# child processes inherit them without needing explicit environment= directives
+# (which would replace – not extend – the container environment and would
+# prevent user-supplied variables such as REACT_APP_BACKEND_URL from reaching
+# the frontend dev-server or PROVIDER_* vars from reaching the backend).
+ENV REDIS_URL=redis://localhost:6379/0
+ENV PORT=3000
+ENV CHOKIDAR_USEPOLLING=true
 # Pin Chrome to a tested version. Update alongside the upstream Dockerfile.backend
 # when new agenticSeek releases are made. Check available versions at:
 # https://googlechromelabs.github.io/chrome-for-testing/
 ENV CHROME_TESTING_VERSION=134.0.6998.88
+
+# Persistent config/runtime directory that is safe to bind-mount from the host
+# without shadowing any application source code.
+RUN mkdir -p /app/userdata
 
 # Install system packages required by the backend, Chrome, and Node.js
 RUN apt-get update -y && apt-get install -y \
