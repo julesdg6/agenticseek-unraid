@@ -138,6 +138,10 @@ RUN if [ ! -f public/index.html ]; then \
 COPY start-frontend.sh /usr/local/bin/start-frontend.sh
 RUN chmod +x /usr/local/bin/start-frontend.sh
 
+# Copy the backend startup script (patches config.ini from env vars)
+COPY start-backend.sh /usr/local/bin/start-backend.sh
+RUN chmod +x /usr/local/bin/start-backend.sh
+
 # Copy Python backend source
 WORKDIR /app
 COPY api.py .
