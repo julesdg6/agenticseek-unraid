@@ -49,7 +49,7 @@
        The default /opt/workspace aligns with the Workspace Path mapping and is set as an
        ENV default in the image, so changing this is only needed if you remap the workspace
        to a different container path. -->
-  <Config Name="Work Directory" Target="WORK_DIR" Default="/opt/workspace"
+  <Config Name="Work Directory" Target="WORK_DIR" Default="/opt/workspace" Mode=""
     Description="Container path the backend uses as its working directory for agent file operations. Must match the container-side path of the Workspace Path volume above (default: /opt/workspace)."
     Type="Variable" Display="advanced" Required="false" Mask="false">/opt/workspace</Config>
 
@@ -61,23 +61,23 @@
     Description="Path where the internal Valkey (Redis-compatible) cache persists its data to disk."
     Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/agenticseek/redis</Config>
 
-  <Config Name="SearxNG URL" Target="SEARXNG_BASE_URL" Default="http://YOUR-SEARXNG-IP:8080"
+  <Config Name="SearxNG URL" Target="SEARXNG_BASE_URL" Default="http://YOUR-SEARXNG-IP:8080" Mode=""
     Description="URL of your pre-installed SearxNG instance used for web searches. Replace with the IP/hostname and port of your existing SearxNG server (e.g. http://192.168.1.100:8080). SearxNG must be installed separately as a prerequisite."
     Type="Variable" Display="always" Required="true" Mask="false">http://YOUR-SEARXNG-IP:8080</Config>
 
-  <Config Name="Provider Name" Target="PROVIDER_NAME" Default="ollama"
+  <Config Name="Provider Name" Target="PROVIDER_NAME" Default="ollama" Mode=""
     Description="LLM provider to use. Options: ollama, openai, deepseek, openrouter, together, google, anthropic, huggingface, lm_studio."
     Type="Variable" Display="always" Required="true" Mask="false">ollama</Config>
 
-  <Config Name="Provider Model" Target="PROVIDER_MODEL" Default="deepseek-r1:14b"
+  <Config Name="Provider Model" Target="PROVIDER_MODEL" Default="deepseek-r1:14b" Mode=""
     Description="Model name to use with the selected provider. For Ollama use the model tag (e.g. deepseek-r1:14b, llama3.2, qwen2.5-coder:14b). For cloud providers use the API model name."
     Type="Variable" Display="always" Required="true" Mask="false">deepseek-r1:14b</Config>
 
-  <Config Name="Provider Server Address" Target="PROVIDER_SERVER_ADDRESS" Default="host.docker.internal:11434"
+  <Config Name="Provider Server Address" Target="PROVIDER_SERVER_ADDRESS" Default="host.docker.internal:11434" Mode=""
     Description="Address of the LLM server. For a local Ollama instance running on the Unraid host, use host.docker.internal:11434."
     Type="Variable" Display="always" Required="true" Mask="false">host.docker.internal:11434</Config>
 
-  <Config Name="Agent Name" Target="AGENT_NAME" Default="Jarvis"
+  <Config Name="Agent Name" Target="AGENT_NAME" Default="Jarvis" Mode=""
     Description="Display name for the AI agent."
     Type="Variable" Display="always" Required="false" Mask="false">Jarvis</Config>
 
@@ -85,43 +85,43 @@
        backend.  It is embedded in the React app at dev-server startup time, so
        it MUST be set to the real LAN IP of your Unraid server before you start
        the container.  Example: http://192.168.1.100:7777 -->
-  <Config Name="Backend URL" Target="REACT_APP_BACKEND_URL" Default="http://YOUR-SERVER-IP:7777"
+  <Config Name="Backend URL" Target="REACT_APP_BACKEND_URL" Default="http://YOUR-SERVER-IP:7777" Mode=""
     Description="Full URL of the AgenticSeek backend reachable from your browser. REQUIRED: replace YOUR-SERVER-IP with the actual LAN IP address of your Unraid server (e.g. http://192.168.1.100:7777). This value is baked into the React app at startup — an incorrect value will show 'System offline'."
     Type="Variable" Display="always" Required="true" Mask="false">http://YOUR-SERVER-IP:7777</Config>
 
-  <Config Name="Backend Port (env)" Target="BACKEND_PORT" Default="7777"
+  <Config Name="Backend Port (env)" Target="BACKEND_PORT" Default="7777" Mode=""
     Description="Port number the backend listens on inside the container. Should match the Backend Port mapping above."
     Type="Variable" Display="advanced" Required="false" Mask="false">7777</Config>
 
-  <Config Name="Node Environment" Target="NODE_ENV" Default="production"
+  <Config Name="Node Environment" Target="NODE_ENV" Default="production" Mode=""
     Description="Node.js environment mode. Use 'production' for normal use or 'development' for live-reload during development."
     Type="Variable" Display="advanced" Required="false" Mask="false">production</Config>
 
-  <Config Name="OpenAI API Key" Target="OPENAI_API_KEY" Default=""
+  <Config Name="OpenAI API Key" Target="OPENAI_API_KEY" Default="" Mode=""
     Description="OpenAI API key. Only required when using the openai provider."
     Type="Variable" Display="always" Required="false" Mask="true"></Config>
 
-  <Config Name="DeepSeek API Key" Target="DEEPSEEK_API_KEY" Default=""
+  <Config Name="DeepSeek API Key" Target="DEEPSEEK_API_KEY" Default="" Mode=""
     Description="DeepSeek API key. Only required when using the deepseek provider."
     Type="Variable" Display="always" Required="false" Mask="true"></Config>
 
-  <Config Name="OpenRouter API Key" Target="OPENROUTER_API_KEY" Default=""
+  <Config Name="OpenRouter API Key" Target="OPENROUTER_API_KEY" Default="" Mode=""
     Description="OpenRouter API key. Only required when using the openrouter provider."
     Type="Variable" Display="always" Required="false" Mask="true"></Config>
 
-  <Config Name="Together API Key" Target="TOGETHER_API_KEY" Default=""
+  <Config Name="Together API Key" Target="TOGETHER_API_KEY" Default="" Mode=""
     Description="Together AI API key. Only required when using the together provider."
     Type="Variable" Display="always" Required="false" Mask="true"></Config>
 
-  <Config Name="Google API Key" Target="GOOGLE_API_KEY" Default=""
+  <Config Name="Google API Key" Target="GOOGLE_API_KEY" Default="" Mode=""
     Description="Google Gemini API key. Only required when using the google provider."
     Type="Variable" Display="always" Required="false" Mask="true"></Config>
 
-  <Config Name="Anthropic API Key" Target="ANTHROPIC_API_KEY" Default=""
+  <Config Name="Anthropic API Key" Target="ANTHROPIC_API_KEY" Default="" Mode=""
     Description="Anthropic Claude API key. Only required when using the anthropic provider."
     Type="Variable" Display="always" Required="false" Mask="true"></Config>
 
-  <Config Name="HuggingFace API Key" Target="HUGGINGFACE_API_KEY" Default=""
+  <Config Name="HuggingFace API Key" Target="HUGGINGFACE_API_KEY" Default="" Mode=""
     Description="HuggingFace API key. Only required when using the huggingface provider."
     Type="Variable" Display="always" Required="false" Mask="true"></Config>
 </Container>
