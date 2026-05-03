@@ -13,7 +13,7 @@
   <Category>AI: Tools: Status:Stable</Category>
   <WebUI>http://[IP]:[PORT:3000]</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/julesdg6/agenticseek-unraid/main/templates/agenticseek.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/Fosowl/agenticSeek/main/media/agentic_seek_logo.png</Icon>
+  <Icon>https://raw.githubusercontent.com/julesdg6/agenticseek-unraid/main/img/agenticseek.png</Icon>
   <ExtraParams>--add-host=host.docker.internal:host-gateway</ExtraParams>
   <PostArgs/>
   <CPUset/>
