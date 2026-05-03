@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>AgenticSeek-Backend</Name>
+  <Repository>ghcr.io/julesdg6/agenticseek-backend:latest</Repository>
+  <Registry>https://github.com/julesdg6/agenticseek-unraid/pkgs/container/agenticseek-backend</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/julesdg6/agenticseek-unraid/issues</Support>
+  <Project>https://github.com/Fosowl/agenticSeek</Project>
+  <Overview>AgenticSeek Backend — the API server for AgenticSeek, a 100% local, private AI assistant that can autonomously browse the web, write and execute code, and manage files. Requires the AgenticSeek-SearxNG and AgenticSeek-Redis containers to be running first.</Overview>
+  <Category>AI: Tools: Status:Stable</Category>
+  <WebUI>http://[IP]:[PORT:7777]</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/julesdg6/agenticseek-unraid/main/templates/agenticseek-backend.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/Fosowl/agenticSeek/main/media/agentic_seek_logo.png</Icon>
+  <ExtraParams>--add-host=host.docker.internal:host-gateway</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>AgenticSeek-Redis and AgenticSeek-SearxNG containers must be running before starting this container.</Requires>
+
+  <Config Name="Backend Port" Target="7777" Default="7777" Mode="tcp"
+    Description="Port for the AgenticSeek backend API. The frontend and any external clients connect to this port."
+    Type="Port" Display="always" Required="true" Mask="false">7777</Config>
+
+  <Config Name="Appdata Path" Target="/app" Default="/mnt/user/appdata/agenticseek" Mode="rw"
+    Description="Path on the Unraid host where AgenticSeek application data (config.ini, sessions, etc.) is stored."
+    Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/agenticseek</Config>
+
+  <Config Name="Workspace Path" Target="/opt/workspace" Default="/mnt/user/data/agenticseek-workspace" Mode="rw"
+    Description="Directory that the AI agent can read from and write files to. Point this to a folder you want the agent to work in."
+    Type="Path" Display="always" Required="true" Mask="false">/mnt/user/data/agenticseek-workspace</Config>
+
+  <Config Name="SearxNG URL" Target="SEARXNG_BASE_URL" Default="http://searxng:8080"
+    Description="Internal URL of the SearxNG container used for web searches. Use the container name as hostname if both containers share the same Unraid bridge network."
+    Type="Variable" Display="always" Required="true" Mask="false">http://searxng:8080</Config>
+
+  <Config Name="Redis URL" Target="REDIS_URL" Default="redis://redis:6379/0"
+    Description="Connection URL for the Redis/Valkey container used for session caching."
+    Type="Variable" Display="always" Required="true" Mask="false">redis://redis:6379/0</Config>
+
+  <Config Name="Backend Port (env)" Target="BACKEND_PORT" Default="7777"
+    Description="Port number the backend listens on inside the container. Should match the Backend Port mapping above."
+    Type="Variable" Display="advanced" Required="false" Mask="false">7777</Config>
+
+  <Config Name="Provider Name" Target="PROVIDER_NAME" Default="ollama"
+    Description="LLM provider to use. Options: ollama, openai, deepseek, openrouter, together, google, anthropic, huggingface, lm_studio."
+    Type="Variable" Display="always" Required="true" Mask="false">ollama</Config>
+
+  <Config Name="Provider Model" Target="PROVIDER_MODEL" Default="deepseek-r1:14b"
+    Description="Model name to use with the selected provider. For Ollama use the model tag (e.g. deepseek-r1:14b, llama3.2, qwen2.5-coder:14b). For cloud providers use the API model name."
+    Type="Variable" Display="always" Required="true" Mask="false">deepseek-r1:14b</Config>
+
+  <Config Name="Provider Server Address" Target="PROVIDER_SERVER_ADDRESS" Default="host.docker.internal:11434"
+    Description="Address of the LLM server. For a local Ollama instance running on the Unraid host, use host.docker.internal:11434."
+    Type="Variable" Display="always" Required="true" Mask="false">host.docker.internal:11434</Config>
+
+  <Config Name="Agent Name" Target="AGENT_NAME" Default="Jarvis"
+    Description="Display name for the AI agent."
+    Type="Variable" Display="always" Required="false" Mask="false">Jarvis</Config>
+
+  <Config Name="OpenAI API Key" Target="OPENAI_API_KEY" Default=""
+    Description="OpenAI API key. Only required when using the openai provider."
+    Type="Variable" Display="always" Required="false" Mask="true"></Config>
+
+  <Config Name="DeepSeek API Key" Target="DEEPSEEK_API_KEY" Default=""
+    Description="DeepSeek API key. Only required when using the deepseek provider."
+    Type="Variable" Display="always" Required="false" Mask="true"></Config>
+
+  <Config Name="OpenRouter API Key" Target="OPENROUTER_API_KEY" Default=""
+    Description="OpenRouter API key. Only required when using the openrouter provider."
+    Type="Variable" Display="always" Required="false" Mask="true"></Config>
+
+  <Config Name="Together API Key" Target="TOGETHER_API_KEY" Default=""
+    Description="Together AI API key. Only required when using the together provider."
+    Type="Variable" Display="always" Required="false" Mask="true"></Config>
+
+  <Config Name="Google API Key" Target="GOOGLE_API_KEY" Default=""
+    Description="Google Gemini API key. Only required when using the google provider."
+    Type="Variable" Display="always" Required="false" Mask="true"></Config>
+
+  <Config Name="Anthropic API Key" Target="ANTHROPIC_API_KEY" Default=""
+    Description="Anthropic Claude API key. Only required when using the anthropic provider."
+    Type="Variable" Display="always" Required="false" Mask="true"></Config>
+
+  <Config Name="HuggingFace API Key" Target="HUGGINGFACE_API_KEY" Default=""
+    Description="HuggingFace API key. Only required when using the huggingface provider."
+    Type="Variable" Display="always" Required="false" Mask="true"></Config>
+</Container>

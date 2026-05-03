@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>AgenticSeek-Redis</Name>
+  <Repository>valkey/valkey:8-alpine</Repository>
+  <Registry>https://hub.docker.com/r/valkey/valkey</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/julesdg6/agenticseek-unraid/issues</Support>
+  <Project>https://github.com/Fosowl/agenticSeek</Project>
+  <Overview>Valkey (Redis-compatible) cache used by AgenticSeek and SearxNG. This is a required companion container. Valkey is an open-source, high-performance key/value datastore that stores session data and search result caches. Start this container first before the other AgenticSeek containers.</Overview>
+  <Category>AI: Tools: Other: Status:Stable</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/julesdg6/agenticseek-unraid/main/templates/agenticseek-redis.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/Fosowl/agenticSeek/main/media/agentic_seek_logo.png</Icon>
+  <ExtraParams>--hostname redis</ExtraParams>
+  <PostArgs>valkey-server --save 30 1 --loglevel warning</PostArgs>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>Start this container first — it must be running before AgenticSeek-SearxNG and AgenticSeek-Backend are started.</Requires>
+
+  <Config Name="Data Path" Target="/data" Default="/mnt/user/appdata/agenticseek/redis" Mode="rw"
+    Description="Path where Valkey persists its data to disk. Data is saved every 30 seconds if at least 1 key has changed."
+    Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/agenticseek/redis</Config>
+</Container>
