@@ -49,11 +49,12 @@ Then go to **Docker** → **Add Container** and the **AgenticSeek** template wil
 
 > **⚠️ Backend URL is required**
 >
-> `REACT_APP_BACKEND_URL` is embedded into the React frontend at dev-server
-> startup time.  You **must** replace `YOUR-SERVER-IP` with your Unraid
-> server's actual LAN IP address (e.g. `http://192.168.1.100:7777`) before
-> starting the container.  If this value is left as the placeholder the UI
-> will show *"System offline. Deploy backend first."*
+> Set `REACT_APP_BACKEND_URL` to your Unraid server's actual LAN IP address
+> (e.g. `http://192.168.1.100:7777`) before starting the container.
+> The container generates a `window.AGENTICSEEK_BACKEND_URL` runtime config
+> file on every startup, so **changing this value and restarting the container
+> is enough** — no image rebuild is needed.  If this value is left as the
+> placeholder the UI will show *"System offline. Deploy backend first."*
 
 ### Using a local Ollama instance
 
@@ -107,6 +108,39 @@ Open your browser at **`http://[SERVER-IP]:3333`** after the container is runnin
    ```bash
    docker logs agenticseek
    ```
+4. Verify the runtime config file was generated correctly inside the container:
+   ```bash
+   docker exec agenticseek cat /frontend/public/runtime-config.js
+   ```
+   The output should show your server's LAN IP, not `localhost`.
+
+### Queries fail with "Unable to get a response"
+
+This usually means the frontend is calling the wrong backend URL.
+
+1. Check the runtime config file (see step 4 above).
+2. If it shows `localhost:7777`, the `REACT_APP_BACKEND_URL` variable is either
+   not set or set to the placeholder value.  Update it to your server's LAN IP,
+   then **restart** the container (a restart is enough — no rebuild needed).
+3. Make sure the URL is reachable from your browser, not just from inside Docker.
+   `localhost` in a browser means *your desktop*, not the Unraid server.
+
+### Template values reset after clicking Edit in Unraid
+
+Unraid's dockerMan fetches the default template from `TemplateURL` when you
+edit a container or check for updates, which can overwrite your saved values.
+
+To prevent this, remove the `<templateurl>` line from your local copy of the
+template:
+
+```bash
+sed -i '/<templateurl>/d' \
+  /boot/config/plugins/dockerMan/templates-user/agenticseek.xml
+```
+
+> **Note:** Removing `TemplateURL` disables automatic template update checks
+> from Community Applications.  You can re-add it later by downloading the
+> template again or updating the line manually.
 
 ### Backend crash: "No work dir specified"
 

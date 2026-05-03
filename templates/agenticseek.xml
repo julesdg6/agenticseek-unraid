@@ -13,6 +13,13 @@
   <Category>AI: Tools: Status:Stable</Category>
   <WebUI>http://[IP]:[PORT:3333]</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/julesdg6/agenticseek-unraid/main/templates/agenticseek.xml</TemplateURL>
+  <!-- NOTE: TemplateURL is kept for Community Applications update checks.
+       Unraid's dockerMan may re-apply default attribute values from this URL
+       when you click Edit or check for updates.  If your saved values revert
+       to defaults after editing, open the Unraid terminal and remove the
+       <templateurl>…</templateurl> line from
+       /boot/config/plugins/dockerMan/templates-user/agenticseek.xml
+       to stop Unraid from refreshing them. -->
   <Icon>https://raw.githubusercontent.com/julesdg6/agenticseek-unraid/main/img/agenticseek.png</Icon>
   <ExtraParams>--add-host=host.docker.internal:host-gateway</ExtraParams>
   <PostArgs/>
@@ -82,11 +89,12 @@
     Type="Variable" Display="always" Required="false" Mask="false">Jarvis</Config>
 
   <!-- REACT_APP_BACKEND_URL must be the URL your *browser* uses to reach the
-       backend.  It is embedded in the React app at dev-server startup time, so
-       it MUST be set to the real LAN IP of your Unraid server before you start
-       the container.  Example: http://192.168.1.100:7777 -->
+       backend.  At container startup the value is written to a runtime config
+       file (window.AGENTICSEEK_BACKEND_URL) so changing it takes effect on
+       the next container restart without rebuilding the image.
+       Example: http://192.168.1.100:7777 -->
   <Config Name="Backend URL" Target="REACT_APP_BACKEND_URL" Default="http://YOUR-SERVER-IP:7777" Mode=""
-    Description="Full URL of the AgenticSeek backend reachable from your browser. REQUIRED: replace YOUR-SERVER-IP with the actual LAN IP address of your Unraid server (e.g. http://192.168.1.100:7777). This value is baked into the React app at startup — an incorrect value will show 'System offline'."
+    Description="Full URL of the AgenticSeek backend reachable from your browser. REQUIRED: replace YOUR-SERVER-IP with the actual LAN IP address of your Unraid server (e.g. http://192.168.1.100:7777). Changing this value and restarting the container is enough — no image rebuild needed."
     Type="Variable" Display="always" Required="true" Mask="false">http://YOUR-SERVER-IP:7777</Config>
 
   <Config Name="Backend Port (env)" Target="BACKEND_PORT" Default="7777" Mode=""
