@@ -12,14 +12,10 @@
   <Overview>AgenticSeek — a 100% local, private AI assistant that can autonomously browse the web, write and execute code, and manage files. This single container runs the React web UI, the Python API backend, and the Valkey (Redis-compatible) cache together. Requires a SearxNG instance accessible on your network.</Overview>
   <Category>AI: Tools: Status:Stable</Category>
   <WebUI>http://[IP]:[PORT:3333]</WebUI>
-  <TemplateURL>https://raw.githubusercontent.com/julesdg6/agenticseek-unraid/main/templates/agenticseek.xml</TemplateURL>
-  <!-- NOTE: TemplateURL is kept for Community Applications update checks.
-       Unraid's dockerMan may re-apply default attribute values from this URL
-       when you click Edit or check for updates.  If your saved values revert
-       to defaults after editing, open the Unraid terminal and remove the
-       <templateurl>…</templateurl> line from
-       /boot/config/plugins/dockerMan/templates-user/agenticseek.xml
-       to stop Unraid from refreshing them. -->
+  <!-- TemplateURL is intentionally omitted: including it causes Unraid's
+       dockerMan to re-apply default values from the remote template whenever
+       you open Edit or check for updates, reverting any values you have saved.
+       Template updates are tracked via the GitHub repository instead. -->
   <Icon>https://raw.githubusercontent.com/julesdg6/agenticseek-unraid/main/img/agenticseek.png</Icon>
   <ExtraParams>--add-host=host.docker.internal:host-gateway</ExtraParams>
   <PostArgs/>

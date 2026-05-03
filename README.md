@@ -130,17 +130,49 @@ This usually means the frontend is calling the wrong backend URL.
 Unraid's dockerMan fetches the default template from `TemplateURL` when you
 edit a container or check for updates, which can overwrite your saved values.
 
-To prevent this, remove the `<templateurl>` line from your local copy of the
-template:
+The distributed template no longer includes a `TemplateURL` element, so fresh
+installs are not affected.
+
+If you installed the template before this fix (or manually placed a copy of the
+template that still contains a `<templateurl>` line), remove it from your local
+copy.  The filename depends on how the template was installed:
+
+- **Installed via Community Applications** — Unraid saves the template as
+  `my-AgenticSeek.xml`:
+
+  ```bash
+  sed -i '/<templateurl>/Id' \
+    /boot/config/plugins/dockerMan/templates-user/my-AgenticSeek.xml
+  ```
+
+- **Manually imported** (e.g. using the `curl` command from this README) —
+  the file keeps the name you used, typically `agenticseek.xml`:
+
+  ```bash
+  sed -i '/<templateurl>/Id' \
+    /boot/config/plugins/dockerMan/templates-user/agenticseek.xml
+  ```
+
+If you also have a duplicate `agenticseek.xml` in the same directory with the
+same `<Name>AgenticSeek</Name>`, remove it to avoid conflicts:
 
 ```bash
-sed -i '/<templateurl>/d' \
-  /boot/config/plugins/dockerMan/templates-user/agenticseek.xml
+rm /boot/config/plugins/dockerMan/templates-user/agenticseek.xml
 ```
 
-> **Note:** Removing `TemplateURL` disables automatic template update checks
-> from Community Applications.  You can re-add it later by downloading the
-> template again or updating the line manually.
+### AgenticSeek uses the wrong Ollama address (falls back to localhost)
+
+The container automatically patches `config.ini` at startup from the
+`PROVIDER_SERVER_ADDRESS` environment variable.  If the backend logs show
+`127.0.0.1:11434` instead of the address you configured:
+
+1. Verify the variable is set in the Unraid container settings.
+2. The value may include an `http://` scheme — that is fine; the startup script
+   strips it automatically (e.g. `http://192.168.1.64:11434` becomes
+   `192.168.1.64:11434` in `config.ini`).
+3. Check the container logs for `[start-backend]` lines at startup — they show
+   the exact values written to `config.ini` and can confirm whether the variable
+   was received correctly.
 
 ### Backend crash: "No work dir specified"
 
