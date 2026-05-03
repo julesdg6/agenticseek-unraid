@@ -4,12 +4,17 @@ Unraid Community Applications templates for [AgenticSeek](https://github.com/Fos
 
 ![AgenticSeek Logo](https://raw.githubusercontent.com/Fosowl/agenticSeek/main/media/agentic_seek_logo.png)
 
+## Prerequisites
+
+[SearxNG](https://github.com/searxng/searxng) must be installed separately before setting up AgenticSeek. SearxNG is a free, self-hosted metasearch engine that AgenticSeek uses for private web searches.
+
+Once installed, note the URL of your SearxNG instance (e.g. `http://192.168.1.100:8080`) — you will enter this as the **SearxNG URL** when configuring the backend container.
+
 ## Templates
 
 | Template | Docker Image | Description |
 |---|---|---|
 | [agenticseek-redis.xml](templates/agenticseek-redis.xml) | `valkey/valkey:8-alpine` | Valkey (Redis-compatible) cache — **start first** |
-| [agenticseek-searxng.xml](templates/agenticseek-searxng.xml) | `searxng/searxng:latest` | SearxNG private search engine |
 | [agenticseek-backend.xml](templates/agenticseek-backend.xml) | `ghcr.io/julesdg6/agenticseek-backend:latest` | Python API backend |
 | [agenticseek-frontend.xml](templates/agenticseek-frontend.xml) | `ghcr.io/julesdg6/agenticseek-frontend:latest` | React web UI |
 
@@ -17,12 +22,12 @@ Unraid Community Applications templates for [AgenticSeek](https://github.com/Fos
 
 ### Via Unraid Community Applications
 
-1. In the Unraid UI go to **Apps** → search for **AgenticSeek**.
-2. Install the four containers **in order**:
+1. Install and configure a [SearxNG](https://github.com/searxng/searxng) instance (see [Prerequisites](#prerequisites) above).
+2. In the Unraid UI go to **Apps** → search for **AgenticSeek**.
+3. Install the three containers **in order**:
    1. **AgenticSeek-Redis** — cache store (no UI)
-   2. **AgenticSeek-SearxNG** — private web search
-   3. **AgenticSeek-Backend** — AI agent API
-   4. **AgenticSeek-Frontend** — web interface
+   2. **AgenticSeek-Backend** — AI agent API
+   3. **AgenticSeek-Frontend** — web interface
 
 ### Manual template import
 
@@ -38,7 +43,7 @@ https://github.com/julesdg6/agenticseek-unraid
 
 | Container | Setting | Default | Notes |
 |---|---|---|---|
-| SearxNG | **Secret Key** | *(empty)* | Generate with `openssl rand -hex 32` |
+| Backend | **SearxNG URL** | `http://YOUR-SEARXNG-IP:8080` | URL of your pre-installed SearxNG instance |
 | Backend | **Provider Name** | `ollama` | `ollama`, `openai`, `deepseek`, `openrouter`, `google`, `anthropic`, etc. |
 | Backend | **Provider Model** | `deepseek-r1:14b` | Model tag for your chosen provider |
 | Backend | **Provider Server Address** | `host.docker.internal:11434` | Address of your Ollama / LM Studio / LLM server |
@@ -69,7 +74,6 @@ All containers store their data under `/mnt/user/appdata/agenticseek/` by defaul
 ```
 /mnt/user/appdata/agenticseek/
 ├── redis/          ← Valkey data
-├── searxng/        ← SearxNG config (settings.yml, limiter.toml)
 └── screenshots/    ← Browser screenshots saved by the agent
 
 /mnt/user/data/agenticseek-workspace/
@@ -78,7 +82,7 @@ All containers store their data under `/mnt/user/appdata/agenticseek/` by defaul
 
 ## Accessing the UI
 
-Open your browser at **`http://[SERVER-IP]:3000`** after all four containers are running.
+Open your browser at **`http://[SERVER-IP]:3000`** after all three containers are running.
 
 ## Support
 

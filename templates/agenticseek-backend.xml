@@ -9,7 +9,7 @@
   <Privileged>false</Privileged>
   <Support>https://github.com/julesdg6/agenticseek-unraid/issues</Support>
   <Project>https://github.com/Fosowl/agenticSeek</Project>
-  <Overview>AgenticSeek Backend — the API server for AgenticSeek, a 100% local, private AI assistant that can autonomously browse the web, write and execute code, and manage files. Requires the AgenticSeek-SearxNG and AgenticSeek-Redis containers to be running first.</Overview>
+  <Overview>AgenticSeek Backend — the API server for AgenticSeek, a 100% local, private AI assistant that can autonomously browse the web, write and execute code, and manage files. Requires the AgenticSeek-Redis container to be running first, and a SearxNG instance accessible on your network.</Overview>
   <Category>AI: Tools: Status:Stable</Category>
   <WebUI>http://[IP]:[PORT:7777]</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/julesdg6/agenticseek-unraid/main/templates/agenticseek-backend.xml</TemplateURL>
@@ -20,7 +20,7 @@
   <DateInstalled/>
   <DonateText/>
   <DonateLink/>
-  <Requires>AgenticSeek-Redis and AgenticSeek-SearxNG containers must be running before starting this container.</Requires>
+  <Requires>AgenticSeek-Redis container must be running before starting this container. A SearxNG instance must also be accessible on your network — point SEARXNG_BASE_URL at it.</Requires>
 
   <Config Name="Backend Port" Target="7777" Default="7777" Mode="tcp"
     Description="Port for the AgenticSeek backend API. The frontend and any external clients connect to this port."
@@ -34,9 +34,9 @@
     Description="Directory that the AI agent can read from and write files to. Point this to a folder you want the agent to work in."
     Type="Path" Display="always" Required="true" Mask="false">/mnt/user/data/agenticseek-workspace</Config>
 
-  <Config Name="SearxNG URL" Target="SEARXNG_BASE_URL" Default="http://searxng:8080"
-    Description="Internal URL of the SearxNG container used for web searches. Use the container name as hostname if both containers share the same Unraid bridge network."
-    Type="Variable" Display="always" Required="true" Mask="false">http://searxng:8080</Config>
+  <Config Name="SearxNG URL" Target="SEARXNG_BASE_URL" Default="http://YOUR-SEARXNG-IP:8080"
+    Description="URL of your pre-installed SearxNG instance used for web searches. Replace with the IP/hostname and port of your existing SearxNG server (e.g. http://192.168.1.100:8080). SearxNG must be installed separately as a prerequisite."
+    Type="Variable" Display="always" Required="true" Mask="false">http://YOUR-SEARXNG-IP:8080</Config>
 
   <Config Name="Redis URL" Target="REDIS_URL" Default="redis://redis:6379/0"
     Description="Connection URL for the Redis/Valkey container used for session caching."
