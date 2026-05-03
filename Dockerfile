@@ -9,7 +9,7 @@ ENV DISPLAY=:99
 # prevent user-supplied variables such as REACT_APP_BACKEND_URL from reaching
 # the frontend dev-server or PROVIDER_* vars from reaching the backend).
 ENV REDIS_URL=redis://localhost:6379/0
-ENV PORT=3000
+ENV PORT=3333
 ENV CHOKIDAR_USEPOLLING=true
 # Pin Chrome to a tested version. Update alongside the upstream Dockerfile.backend
 # when new agenticSeek releases are made. Check available versions at:
@@ -113,6 +113,6 @@ RUN mkdir -p /opt/workspace /app/screenshots /data /var/log/supervisor
 # Supervisord configuration for multi-process management
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-EXPOSE 3000 7777
+EXPOSE 3333 7777
 
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

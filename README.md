@@ -96,7 +96,7 @@ All data is stored under `/mnt/user/appdata/agenticseek/` by default:
 
 ## Accessing the UI
 
-Open your browser at **`http://[SERVER-IP]:3000`** after the container is running.
+Open your browser at **`http://[SERVER-IP]:3333`** after the container is running.
 
 ## Troubleshooting
 

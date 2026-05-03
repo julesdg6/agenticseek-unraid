@@ -11,7 +11,7 @@
   <Project>https://github.com/Fosowl/agenticSeek</Project>
   <Overview>AgenticSeek — a 100% local, private AI assistant that can autonomously browse the web, write and execute code, and manage files. This single container runs the React web UI, the Python API backend, and the Valkey (Redis-compatible) cache together. Requires a SearxNG instance accessible on your network.</Overview>
   <Category>AI: Tools: Status:Stable</Category>
-  <WebUI>http://[IP]:[PORT:3000]</WebUI>
+  <WebUI>http://[IP]:[PORT:3333]</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/julesdg6/agenticseek-unraid/main/templates/agenticseek.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/julesdg6/agenticseek-unraid/main/img/agenticseek.png</Icon>
   <ExtraParams>--add-host=host.docker.internal:host-gateway</ExtraParams>
@@ -22,9 +22,9 @@
   <DonateLink/>
   <Requires>A SearxNG instance must be accessible on your network — set SEARXNG_BASE_URL to point at it.</Requires>
 
-  <Config Name="WebUI Port" Target="3000" Default="3000" Mode="tcp"
-    Description="Port for the AgenticSeek React frontend. Open http://[SERVER-IP]:3000 in your browser."
-    Type="Port" Display="always" Required="true" Mask="false">3000</Config>
+  <Config Name="WebUI Port" Target="3333" Default="3333" Mode="tcp"
+    Description="Port for the AgenticSeek React frontend. Open http://[SERVER-IP]:3333 in your browser."
+    Type="Port" Display="always" Required="true" Mask="false">3333</Config>
 
   <!-- Backend port must be exposed so your browser can reach the API.
        The REACT_APP_BACKEND_URL variable below must use the same port number. -->
