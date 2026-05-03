@@ -29,12 +29,12 @@ Once installed, note the URL of your SearxNG instance (e.g. `http://192.168.1.10
 If the template is not yet in the Community Apps feed, run the following command in the Unraid terminal to download the template directly to your server:
 
 ```bash
-mkdir -p /boot/config/plugins/community.applications/AppsCustomList && \
-curl -o /boot/config/plugins/community.applications/AppsCustomList/agenticseek.xml \
+mkdir -p /boot/config/plugins/dockerMan/templates-user && \
+curl -o /boot/config/plugins/dockerMan/templates-user/agenticseek.xml \
   https://raw.githubusercontent.com/julesdg6/agenticseek-unraid/main/templates/agenticseek.xml
 ```
 
-Then go to **Apps** and click **Refresh** (or **Update Apps**) to reload the custom apps list. The **AgenticSeek** container will appear under the **My Apps** or search results.
+Then go to **Docker** → **Add Container** and the **AgenticSeek** template will be available in the template dropdown.
 
 ## Configuration
 
